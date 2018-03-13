@@ -1,8 +1,7 @@
 {
   "name": "tournamentbracketgenerator",
   "version": "0.1.0",
-  "description":
-    "Enter players and generate random teams and a tournament bracket. Also can be used to just make random teams and track individual wins and losses. ",
+  "description": "Enter players and generate random teams and a tournament bracket. Also can be used to just make random teams and track individual wins and losses. ",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -14,13 +13,20 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "semantic-ui-react": "^0.78.3"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rsalge/BracketGenerator.git"
   },
-  "keywords": ["tournament", "bracket", "random", "team", "generator"],
+  "keywords": [
+    "tournament",
+    "bracket",
+    "random",
+    "team",
+    "generator"
+  ],
   "author": "Ross Salge",
   "license": "MIT",
   "bugs": {
