@@ -1,7 +1,8 @@
 {
   "name": "tournamentbracketgenerator",
   "version": "0.1.0",
-  "description": "Enter players and generate random teams and a tournament bracket. Also can be used to just make random teams and track individual wins and losses. ",
+  "description":
+    "Enter players and generate random teams and a tournament bracket. Also can be used to just make random teams and track individual wins and losses. ",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -11,6 +12,14 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.1",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.10",
+    "path": "^0.12.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
@@ -20,17 +29,12 @@
     "type": "git",
     "url": "git+https://github.com/Rsalge/BracketGenerator.git"
   },
-  "keywords": [
-    "tournament",
-    "bracket",
-    "random",
-    "team",
-    "generator"
-  ],
+  "keywords": ["tournament", "bracket", "random", "team", "generator"],
   "author": "Ross Salge",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Rsalge/BracketGenerator/issues"
   },
+  "proxy": "http://localhost:3001",
   "homepage": "https://github.com/Rsalge/BracketGenerator#readme"
 }

@@ -14,6 +14,21 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../client/build")));
 mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type",
+    "Accept",
+    "Authorization",
+    "Origin",
+    "jwt"
+  );
+  next();
+});
+
 app.use(
   session({
     secret: "tourney",
