@@ -3,16 +3,36 @@ const path = require("path");
 const Player = require("../../db/index.js");
 require("dotenv").config({ path: "../../env.env" });
 
-router.get("/hello", (req, res) => {
-  res.send("<div>Hello</div>");
+router.get("/allPlayers", (req, res) => {
+  Player.find({}, (err, allPlayers) => {
+    if (err) {
+      res.send(err);
+    }
+    if (allPlayers) {
+      console.log("FOUND ALL PLAYERS: ", allPlayers);
+      res.send(allPlayers);
+    } else {
+      console.log("no players found");
+    }
+  });
 });
 
 router.post("/addPlayer", (req, res) => {
-  Player.findOne({ name: req.data }, (err, player) => {
-    if (player) {
-      console.log("player found", player);
+  let name = req.body.name;
+  console.log("Player info: ", name);
+  Player.findOne({ name: name }, (err, player) => {
+    if (!player) {
+      let newPlayer = new Player();
+      newPlayer.name = name;
+      newPlayer.save(err => {
+        if (err) {
+          console.log("New player creation error: ", err);
+        } else {
+          console.log("New player saved", newPlayer);
+        }
+      });
     } else {
-      console.log("no player found");
+      console.log("player found");
     }
   });
   res.send("Player added");

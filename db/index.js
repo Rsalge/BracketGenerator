@@ -6,15 +6,17 @@ const PlayerSchema = new mongoose.Schema({
     required: true
   },
 
-  winCount: {
-    type: Number,
-    required: true
+  games: {
+    wins: {
+      type: Number
+    },
+    totalCount: {
+      type: Number
+    }
   },
 
   ability: {
-    type: String,
-    unique: true,
-    required: true
+    type: String
   },
 
   doNotPair: {

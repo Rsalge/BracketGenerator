@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+const cors = require("cors");
 
 require("dotenv").config({ path: "../env.env" });
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+app.use(cors());
 
 app.use(
   session({
