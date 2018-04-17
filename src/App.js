@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import AddPlayers from "./AddPlayers";
+import AddPlayers from "./AddPlayers/AddPlayers.js";
 import Teams from "./Teams";
 import axios from "axios";
 class App extends Component {
@@ -17,12 +17,7 @@ class App extends Component {
     axios
       .get("http://localhost:3001/api/allPlayers")
       .then(allPlayers => {
-        console.log("recieved player data: ", allPlayers);
-        let players = allPlayers.data.map(player => {
-          return player.name;
-        });
-        console.log("updated players", players);
-        this.setState({ players });
+        this.setState({ players: allPlayers.data });
       })
       .catch(err => console.log("refresh players error: ", err));
   };

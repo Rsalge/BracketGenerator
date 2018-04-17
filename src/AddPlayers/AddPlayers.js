@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Input, Button } from "semantic-ui-react";
 import axios from "axios";
-import PlayerPool from "../PlayerPool";
-import PlayerSelection from "./PlayerSelection";
-import "./index.css";
+import PlayerPool from "../PlayerPool/PlayerPool.js";
+import PlayerSelection from "../PlayerSelection/PlayerSelection.js";
+import "./AddPlayers.css";
 
 export default class AddPlayers extends Component {
   state = {
@@ -13,14 +13,14 @@ export default class AddPlayers extends Component {
     error: ""
   };
   onComponentDidMount() {
-    console.log("Get players");
-    let { players } = this.state;
-    this.refreshPlayers();
+    // let { players } = this.state;
+    // this.refreshPlayers();
   }
   addPlayer = e => {
     if (e.key === "Enter" || e.type === "click") {
       let { players, playerEntry, error } = this.state;
-      if (!players.includes(playerEntry) && playerEntry.length > 0) {
+      let playerNames = players.map(player => player.name);
+      if (!playerNames.includes(playerEntry) && playerEntry.length > 0) {
         players.push(playerEntry);
         axios
           .post("http://localhost:3001/api/addPlayer", { name: playerEntry })
@@ -65,13 +65,14 @@ export default class AddPlayers extends Component {
         {this.state.error && (
           <h3 style={{ color: "red" }}> {this.state.error} </h3>
         )}
+
+        {this.state.selectedPlayers.length !== 0 && (
+          <PlayerSelection players={this.state.selectedPlayers} />
+        )}
         <PlayerPool
           playerClick={this.playerClick.bind(this)}
           players={this.props.players}
         />
-        {this.state.selectedPlayers.length !== 0 && (
-          <PlayerSelection players={this.state.selectedPlayers} />
-        )}
       </div>
     );
   }
