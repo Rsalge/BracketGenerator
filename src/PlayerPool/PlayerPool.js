@@ -7,9 +7,12 @@ export default class PlayerList extends Component {
       <div style={{ gridArea: "playerPool" }}>
         <h1> Player Pool </h1>
         <ul className="playerPool">
-          {this.props.players.map(player => {
+          {this.props.players.map((player, i) => {
             return (
-              <li onClick={this.props.playerClick} className="player">
+              <li
+                onClick={this.props.playerClick.bind(this, i, player.name)}
+                className="player"
+              >
                 {player.name}
               </li>
             );

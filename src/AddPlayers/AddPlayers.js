@@ -6,47 +6,57 @@ import PlayerSelection from "../PlayerSelection/PlayerSelection.js";
 import "./AddPlayers.css";
 
 export default class AddPlayers extends Component {
-  state = {
-    players: [],
-    selectedPlayers: [],
-    playerEntry: "",
-    error: ""
-  };
-  onComponentDidMount() {
-    // let { players } = this.state;
-    // this.refreshPlayers();
+  constructor(props) {
+    super(props);
+    console.log("AddPlayers players prop", props.players);
+    this.state = {
+      playerPool: [],
+      selectedPlayers: [],
+      playerEntry: "",
+      error: ""
+    };
+  }
+  componentWillReceiveProps(props) {
+    console.log("WHEN IS THIS CALLED?");
+    this.setState({ playerPool: props.players });
   }
   addPlayer = e => {
     if (e.key === "Enter" || e.type === "click") {
-      let { players, playerEntry, error } = this.state;
-      let playerNames = players.map(player => player.name);
+      let { playerPool, playerEntry, error } = this.state;
+      let playerNames = playerPool.map(player => player.name);
       if (!playerNames.includes(playerEntry) && playerEntry.length > 0) {
-        players.push(playerEntry);
+        playerPool.push(playerEntry);
         axios
           .post("http://localhost:3001/api/addPlayer", { name: playerEntry })
           .then(response => {
             console.log("Player added", response);
+            //this is necessary due to Async, otherwise players don't automatically update when added
             setTimeout(this.props.refreshPlayers, 500);
-            console.log("player added wait");
-            // this.setState({ players, playerEntry: "", error });
           })
           .catch(err => console.log("Error adding player: ", err));
         error = "";
       } else {
         error = "Playername already exists";
       }
-      this.setState({ players, playerEntry: "", error });
+      this.setState({ playerPool, playerEntry: "", error });
     }
   };
-  playerClick = e => {
-    let { selectedPlayers } = this.state;
+  playerClick = (i, playerName, e) => {
+    let { selectedPlayers, playerPool } = this.state;
     console.log("selectedPlayers", selectedPlayers);
     let player = e.currentTarget.textContent;
-    console.log("player clicked", player);
-    if (!selectedPlayers.includes(player)) {
-      selectedPlayers.push(player);
-      this.setState({ selectedPlayers });
-    }
+    let playerIndex = e.currentTarget.index;
+    console.log(
+      "player index",
+      playerIndex,
+      "\n\ne.currentTarget: ",
+      e.currentTarget,
+      "\n\n"
+    );
+    playerPool.splice(playerIndex, 1);
+    console.log("new player pool", playerPool);
+    selectedPlayers.push(player);
+    this.setState({ selectedPlayers, playerPool });
   };
   render() {
     return (
@@ -71,7 +81,7 @@ export default class AddPlayers extends Component {
         )}
         <PlayerPool
           playerClick={this.playerClick.bind(this)}
-          players={this.props.players}
+          players={this.state.playerPool}
         />
       </div>
     );

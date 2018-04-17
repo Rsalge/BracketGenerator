@@ -17,11 +17,13 @@ class App extends Component {
     axios
       .get("http://localhost:3001/api/allPlayers")
       .then(allPlayers => {
+        console.log("recieved player data", allPlayers.data);
         this.setState({ players: allPlayers.data });
       })
       .catch(err => console.log("refresh players error: ", err));
   };
   render() {
+    console.log("APP PASSING DOWN PLAYRES", this.state.players);
     return (
       <div>
         {this.state.view === "addPlayers" && (
